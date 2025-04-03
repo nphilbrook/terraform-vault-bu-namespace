@@ -19,7 +19,7 @@ resource "vault_policy" "hcp_tf" {
 
 # This role will be used by the BU management workspace to manage the namespace
 # Ref workspace variable setup: https://github.com/nphilbrook/hcp-tf-control/TBW
-resource "vault_jwt_auth_backend_role" "hcp_tf_top_level" {
+resource "vault_jwt_auth_backend_role" "hcp_tf_bu" {
   namespace = vault_namespace.this.path
 
   backend        = vault_jwt_auth_backend.jwt_hcp_tf.path

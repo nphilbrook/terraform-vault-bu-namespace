@@ -17,3 +17,8 @@ variable "tf_project_name" {
   description = "The name of the Terraform project to bind the JWT auth to. Workspace is inferred from name"
   default     = "SB Vault Lab"
 }
+
+variable "auth_mount_accessor" {
+  type        = string
+  description = "The accessor of the authentication mount for creating group aliases"
+}
