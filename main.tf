@@ -34,3 +34,26 @@ resource "vault_jwt_auth_backend_role" "hcp_tf_bu" {
   user_claim        = "terraform_project_id"
   role_type         = "jwt"
 }
+
+# Default k/v mounts
+resource "vault_mount" "kv_nonprod" {
+  namespace = vault_namespace.this.path
+  path      = "nonprod/kv"
+  type      = "kv-v2"
+  options = {
+    version = "2"
+    type    = "kv-v2"
+  }
+  description = "nonprod K/V secrets"
+}
+
+resource "vault_mount" "kv_prod" {
+  namespace = vault_namespace.this.path
+  path      = "prod/kv"
+  type      = "kv-v2"
+  options = {
+    version = "2"
+    type    = "kv-v2"
+  }
+  description = "prod K/V secrets"
+}
