@@ -1,3 +1,8 @@
+variables {
+  auth_mount_accessor = "auth_saml_1234abcde"
+  name = "foobar"
+}
+
 provider "vault" {
   address = "unused"
 }
@@ -84,4 +89,35 @@ run "no_reserved6" {
   expect_failures = [
     var.name
   ]
+}
+
+run "aws_fail_without_creds" {
+  command = plan
+
+  variables {
+    configure_aws = true
+  }
+
+  expect_failures = [
+    var.initial_aws_access_key_id,
+    var.initial_aws_secret_access_key
+  ]
+}
+
+run "aws_false_success" {
+  command = plan
+
+  variables {
+    configure_aws = false
+  }
+}
+
+run "aws_true_success" {
+  command = plan
+
+  variables {
+    configure_aws = true
+    initial_aws_access_key_id = "AKIAXQY5RIOOOOOO"
+    initial_aws_secret_access_key = "aoeu1234"
+  }
 }
