@@ -27,7 +27,7 @@ resource "vault_policy" "probable_pancake" {
 
 resource "vault_jwt_auth_backend_role" "probable_pancake" {
   namespace      = vault_namespace.this.path
-  backend        = vault_aws_secret_backend.aws.path
+  backend        = vault_jwt_auth_backend.jwt_hcp_tf.path
   role_name      = "hcp-tf-probable-pancake"
   token_policies = ["default", vault_policy.probable_pancake.name]
 
