@@ -1,8 +1,11 @@
+provider "vault" {
+  address = "unused"
+}
+
 variables {
   auth_mount_accessor = "auth_saml_1234abcde"
   name                = "foobar"
 }
-
 
 run "aws_fail_without_creds" {
   command = plan

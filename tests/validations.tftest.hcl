@@ -1,10 +1,10 @@
+provider "vault" {
+  address = "unused"
+}
+
 variables {
   auth_mount_accessor = "auth_saml_1234abcde"
   name                = "foobar"
-}
-
-provider "vault" {
-  address = "unused"
 }
 
 run "no_ending_slash" {
