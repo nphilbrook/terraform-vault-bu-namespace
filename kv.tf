@@ -48,7 +48,7 @@ resource "vault_identity_group_alias" "kv_nonprod" {
 
 # External group for prod
 resource "vault_identity_group" "kv_prod" {
-  name     = "kv_nonprod"
+  name     = "kv_prod"
   type     = "external"
   policies = [vault_policy.kv_nonprod.name, vault_policy.kv_prod.name]
 }
