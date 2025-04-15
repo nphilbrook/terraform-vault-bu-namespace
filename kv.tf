@@ -41,7 +41,7 @@ resource "vault_identity_group" "kv_nonprod" {
 }
 
 resource "vault_identity_group_alias" "kv_nonprod" {
-  name           = "sg_${vault_namespace.this.path}_appdev_nonprod"
+  name           = "sg_${vault_namespace.this.path}_nonprod"
   mount_accessor = var.auth_mount_accessor
   canonical_id   = vault_identity_group.kv_nonprod.id
 }
@@ -54,7 +54,7 @@ resource "vault_identity_group" "kv_prod" {
 }
 
 resource "vault_identity_group_alias" "kv_prod" {
-  name           = "sg_${vault_namespace.this.path}_appdev_prod"
+  name           = "sg_${vault_namespace.this.path}_prod"
   mount_accessor = var.auth_mount_accessor
   canonical_id   = vault_identity_group.kv_prod.id
 }
