@@ -22,13 +22,13 @@ resource "vault_mount" "kv_prod" {
 }
 
 resource "vault_policy" "kv_nonprod" {
-  name = "kv-nonprod"
+  name = "${vault_namespace.this.path}-kv-nonprod"
   # ref kv_policies.tf
   policy = data.vault_policy_document.kv_nonprod.hcl
 }
 
 resource "vault_policy" "kv_prod" {
-  name = "kv-prod"
+  name = "${vault_namespace.this.path}-kv-prod"
   # ref kv_policies.tf
   policy = data.vault_policy_document.kv_prod.hcl
 }
