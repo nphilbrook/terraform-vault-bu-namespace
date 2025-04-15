@@ -35,7 +35,7 @@ resource "vault_policy" "kv_prod" {
 
 # External group for nonprod
 resource "vault_identity_group" "kv_nonprod" {
-  name     = "kv_nonprod"
+  name     = "${vault_namespace.this.path}-kv_nonprod"
   type     = "external"
   policies = [vault_policy.kv_nonprod.name]
 }
@@ -48,7 +48,7 @@ resource "vault_identity_group_alias" "kv_nonprod" {
 
 # External group for prod
 resource "vault_identity_group" "kv_prod" {
-  name     = "kv_prod"
+  name     = "${vault_namespace.this.path}-kv_prod"
   type     = "external"
   policies = [vault_policy.kv_nonprod.name, vault_policy.kv_prod.name]
 }
