@@ -1,7 +1,16 @@
+resource "vault_jwt_auth_backend" "jwt_gha" {
+  count              = var.configure_gha ? 1 : 0
+  namespace          = vault_namespace.this.path
+  description        = "JWT auth backend for Github Actions"
+  path               = "github/jwt"
+  oidc_discovery_url = "https://token.actions.githubusercontent.com"
+  bound_issuer       = "https://token.actions.githubusercontent.com"
+}
+
 resource "vault_jwt_auth_backend_role" "gha_role" {
   count             = var.configure_gha ? 1 : 0
   namespace         = vault_namespace.this.path
-  backend           = vault_jwt_auth_backend.jwt_hcp_tf.path
+  backend           = vault_jwt_auth_backend.jwt_gha[0].path
   role_name         = "gha-workflow"
   bound_audiences   = ["https://github.com/nphilbrook"]
   bound_claims_type = "glob"
