@@ -2,20 +2,42 @@ resource "vault_jwt_auth_backend_role" "gha_role" {
   count             = var.configure_gha ? 1 : 0
   namespace         = vault_namespace.this.path
   backend           = vault_jwt_auth_backend.jwt_hcp_tf.path
-  role_name         = "auth.jwt.app1.workflow1"
+  role_name         = "gha-workflow"
   bound_audiences   = ["https://github.com/nphilbrook"]
-  bound_claims_type = "string"
-  bound_subject     = "repo:nphilbrook/lambda-code-fib:ref:refs/heads/main"
+  bound_claims_type = "glob"
   bound_claims = {
-    actor                 = "nphilbrook"
-    workflow              = "demo-jwt-auth-workflow"
-    repository_visibility = "private"
-    runner_environment    = "self-hosted"
-    repository_owner      = "nphilbrook"
+    sub                = "repo:nphilbrook/*"
+    workflow           = "retrieve-vault"
+    runner_environment = "self-hosted"
   }
   user_claim     = "sub"
   role_type      = "jwt"
   token_ttl      = 300
   token_type     = "service"
-  token_policies = ["app1-workflow1"]
+  token_policies = ["gha-policy"]
+}
+
+resource "vault_policy" "gha_policy" {
+  count = var.configure_gha ? 1 : 0
+
+  namespace = vault_namespace.this.path
+  name      = "gha-policy"
+  # ref below
+  policy = data.vault_policy_document.gha_policy[0].hcl
+}
+
+data "vault_policy_document" "gha_policy" {
+  count = var.configure_gha ? 1 : 0
+
+  rule {
+    path         = "prod/kv/*"
+    capabilities = ["read"]
+    description  = "Read prod kv secrets"
+  }
+
+  rule {
+    path         = "nonprod/kv/*"
+    capabilities = ["read"]
+    description  = "Read nonprod kv secrets"
+  }
 }

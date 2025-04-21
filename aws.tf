@@ -22,15 +22,6 @@ resource "vault_aws_secret_backend_role" "vault_aws_role" {
   role_arns       = ["arn:aws:iam::517068637116:role/dyn-ec2-access", "arn:aws:iam::517068637116:role/s3-full-access"]
 }
 
-resource "vault_policy" "probable_pancake" {
-  count = var.configure_aws ? 1 : 0
-
-  namespace = vault_namespace.this.path
-  name      = "aws-probable-pancake"
-  # ref below
-  policy = data.vault_policy_document.probable_pancake[0].hcl
-}
-
 resource "vault_jwt_auth_backend_role" "probable_pancake" {
   count = var.configure_aws ? 1 : 0
 
@@ -46,6 +37,15 @@ resource "vault_jwt_auth_backend_role" "probable_pancake" {
   bound_claims_type = "glob"
   user_claim        = "terraform_full_workspace"
   role_type         = "jwt"
+}
+
+resource "vault_policy" "probable_pancake" {
+  count = var.configure_aws ? 1 : 0
+
+  namespace = vault_namespace.this.path
+  name      = "aws-probable-pancake"
+  # ref below
+  policy = data.vault_policy_document.probable_pancake[0].hcl
 }
 
 data "vault_policy_document" "probable_pancake" {
