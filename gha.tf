@@ -2,7 +2,7 @@ resource "vault_jwt_auth_backend" "jwt_gha" {
   count              = var.configure_gha ? 1 : 0
   namespace          = vault_namespace.this.path
   description        = "JWT auth backend for Github Actions"
-  path               = "github/jwt"
+  path               = "jwt-github"
   oidc_discovery_url = "https://token.actions.githubusercontent.com"
   bound_issuer       = "https://token.actions.githubusercontent.com"
 }
