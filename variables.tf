@@ -50,3 +50,9 @@ variable "initial_aws_secret_access_key" {
     error_message = "initial_aws_secret_access_key must be set if configure_awm is true"
   }
 }
+
+variable "configure_gha" {
+  type        = bool
+  default     = false
+  description = "whether to cerate JWT roles and policies for GHA"
+}
