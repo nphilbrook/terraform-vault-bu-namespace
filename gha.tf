@@ -49,10 +49,4 @@ data "vault_policy_document" "gha_policy" {
     capabilities = ["read"]
     description  = "Read nonprod kv secrets"
   }
-
-  rule {
-    path         = "auth/token/revoke-self"
-    capabilities = ["update"]
-    description  = "Grant ability to revoke selfe"
-  }
 }
