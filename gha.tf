@@ -8,11 +8,12 @@ resource "vault_jwt_auth_backend" "jwt_gha" {
 }
 
 resource "vault_jwt_auth_backend_role" "gha_role" {
-  count             = var.configure_gha ? 1 : 0
-  namespace         = vault_namespace.this.path
-  backend           = vault_jwt_auth_backend.jwt_gha[0].path
-  role_name         = "gha-workflow"
-  bound_audiences   = ["https://github.com/nphilbrook"]
+  count     = var.configure_gha ? 1 : 0
+  namespace = vault_namespace.this.path
+  backend   = vault_jwt_auth_backend.jwt_gha[0].path
+  role_name = "gha-workflow"
+  # TODO: Update with correct bound_audience
+  bound_audiences   = ["https://github.com/BankUnited-Core"]
   bound_claims_type = "glob"
   bound_claims = {
     sub                = "repo:nphilbrook/*"
