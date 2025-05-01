@@ -1,3 +1,8 @@
+# terraform-vault-bu-namespace
+This is a module for creating a Business Unit namespace on HashiCorp Vault. It is intended to be called from the `hcp-vault-admin-terraform` repository, and created namespaces
+will live under either the `testing` or `live` namespace, depending on which workspace was used to create it (`hcp-vault-admin-terraform-testing` or `hcp-vault-admin-terraform-admin-live`).
+
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -60,3 +65,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_namespace_id"></a> [namespace\_id](#output\_namespace\_id) | The internal ID Vault assigns this namespace. |
+<!-- END_TF_DOCS -->
