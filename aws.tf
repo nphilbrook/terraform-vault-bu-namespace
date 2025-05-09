@@ -62,4 +62,16 @@ data "vault_policy_document" "aws_policy" {
     capabilities = ["read", "update", "create"]
     description  = "Read dynamic AWS credentials for the specified role with the STS path."
   }
+
+  rule {
+    path         = "aws-doormat/creds/${vault_aws_secret_backend_role.vault_aws_role[0].name}"
+    capabilities = ["read"]
+    description  = "Read dynamic AWS credentials for the specified role"
+  }
+
+  rule {
+    path         = "aws-doormat/sts/${vault_aws_secret_backend_role.vault_aws_role[0].name}"
+    capabilities = ["read", "update", "create"]
+    description  = "Read dynamic AWS credentials for the specified role with the STS path."
+  }
 }
