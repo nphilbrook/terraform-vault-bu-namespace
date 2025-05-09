@@ -3,11 +3,6 @@ data "aws_iam_policy" "demo_user_permissions_boundary" {
   name  = "DemoUser"
 }
 
-data "aws_iam_policy" "s3_full_access" {
-  count = var.configure_aws ? 1 : 0
-  name  = "AmazonS3FullAccess"
-}
-
 resource "aws_iam_user" "vault_mount_user" {
   count                = var.configure_aws ? 1 : 0
   name                 = "vault-root-${replace(vault_namespace.this.id, "/", "-")}"
