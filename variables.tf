@@ -18,6 +18,18 @@ variable "name" {
 #   default     = "SB Vault Lab"
 # }
 
+variable "kv_group_prod_name" {
+  type        = string
+  description = "Name of the group to use for production k/v access"
+  default     = null
+}
+
+variable "kv_group_nonprod_name" {
+  type        = string
+  description = "Name of the group to use for nonprod k/v access"
+  default     = null
+}
+
 variable "auth_mount_accessor" {
   type        = string
   description = "The accessor of the authentication mount for creating group aliases"
