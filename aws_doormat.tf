@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "vault_mount_user_policy" {
 
 resource "aws_iam_policy" "vault_mount_user_policy" {
   count  = var.configure_aws ? 1 : 0
-  name   = "vault-mount-user"
+  name   = "vault-mount-user-${replace(vault_namespace.this.id, "/", "-")}"
   policy = data.aws_iam_policy_document.vault_mount_user_policy[0].json
 }
 
