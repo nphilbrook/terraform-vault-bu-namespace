@@ -3,6 +3,11 @@ data "aws_iam_policy" "demo_user_permissions_boundary" {
   name  = "DemoUser"
 }
 
+data "aws_iam_role" "vault_target_iam_role" {
+  count = var.configure_aws ? 1 : 0
+  name  = "vault-assumed-role-credentials-demo"
+}
+
 resource "aws_iam_user" "vault_mount_user" {
   count                = var.configure_aws ? 1 : 0
   name                 = "vault-root-${replace(vault_namespace.this.id, "/", "-")}"
@@ -10,10 +15,29 @@ resource "aws_iam_user" "vault_mount_user" {
   force_destroy        = true
 }
 
+data "aws_iam_policy_document" "vault_mount_user_policy" {
+  count = var.configure_aws ? 1 : 0
+  statement {
+    effect = "Allow"
+    actions = [
+      "sts:AssumeRole"
+    ]
+    resources = [
+      data.aws_iam_role.vault_target_iam_role[0].arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "vault_mount_user_policy" {
+  count  = var.configure_aws ? 1 : 0
+  name   = "vault-mount-user"
+  policy = data.aws_iam_policy_document.vault_mount_user_policy[0].json
+}
+
 resource "aws_iam_user_policy_attachment" "vault_mount_user" {
   count      = var.configure_aws ? 1 : 0
   user       = aws_iam_user.vault_mount_user[0].name
-  policy_arn = data.aws_iam_policy.demo_user_permissions_boundary[0].arn
+  policy_arn = aws_iam_policy.vault_mount_user_policy[0].arn
 }
 
 resource "aws_iam_access_key" "vault_mount_user" {
@@ -22,11 +46,6 @@ resource "aws_iam_access_key" "vault_mount_user" {
   lifecycle {
     ignore_changes = all
   }
-}
-
-data "aws_iam_role" "vault_target_iam_role" {
-  count = var.configure_aws ? 1 : 0
-  name  = "vault-assumed-role-credentials-demo"
 }
 
 resource "vault_aws_secret_backend" "aws_doormat" {
