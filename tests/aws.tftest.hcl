@@ -8,6 +8,11 @@ mock_provider "aws" {
       arn = "arn:aws:iam::123456780000:policy/DemoUser"
     }
   }
+  mock_data "aws_iam_policy_document" {
+    defaults = {
+      json = "{}"
+    }
+  }
 }
 
 variables {
