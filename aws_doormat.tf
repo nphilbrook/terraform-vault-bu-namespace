@@ -26,6 +26,18 @@ data "aws_iam_policy_document" "vault_mount_user_policy" {
       data.aws_iam_role.vault_target_iam_role[0].arn
     ]
   }
+  statement {
+    effect = "Allow"
+    actions = [
+      "iam:GetUser",
+      "iam:CreateAccessKey",
+      "iam:DeleteAccessKey",
+      "iam:ListAccessKeys"
+    ]
+    resources = [
+      aws_iam_user.vault_mount_user[0].arn
+    ]
+  }
 }
 
 resource "aws_iam_policy" "vault_mount_user_policy" {
