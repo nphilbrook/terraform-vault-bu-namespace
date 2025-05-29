@@ -63,18 +63,18 @@ variable "initial_aws_secret_access_key" {
   }
 }
 
-variable "configure_gha" {
-  type        = bool
-  default     = false
-  description = "whether to cerate JWT roles and policies for GHA"
-}
+# variable "configure_gha" {
+#   type        = bool
+#   default     = false
+#   description = "whether to cerate JWT roles and policies for GHA"
+# }
 
-variable "gha_org" {
-  type        = string
-  description = "A Github Org to use in your GHA JWT auth for binding audience and claims. Required if configure_gha is true."
-  default     = null
-  validation {
-    condition     = var.configure_gha ? var.gha_org != null : true
-    error_message = "gha_org must be set if configure_gha is true"
-  }
-}
+# variable "gha_org" {
+#   type        = string
+#   description = "A Github Org to use in your GHA JWT auth for binding audience and claims. Required if configure_gha is true."
+#   default     = null
+#   validation {
+#     condition     = var.configure_gha ? var.gha_org != null : true
+#     error_message = "gha_org must be set if configure_gha is true"
+#   }
+# }
