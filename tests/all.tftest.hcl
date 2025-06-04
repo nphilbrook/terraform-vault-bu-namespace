@@ -112,7 +112,7 @@ run "no_prod_kv" {
     kv_group_nonprod_name = "foobar"
   }
   assert {
-    condition = length(vault_identity_group_alias.kv_prod) == 0
+    condition     = length(vault_identity_group_alias.kv_prod) == 0
     error_message = "prod kv group alias was created but not expected"
   }
 }
@@ -124,7 +124,7 @@ run "yes_prod_kv" {
     kv_group_prod_name = "foobar"
   }
   assert {
-    condition = length(vault_identity_group_alias.kv_prod) == 1
+    condition     = length(vault_identity_group_alias.kv_prod) == 1
     error_message = "prod kv group alias was not created but expected"
   }
 }
@@ -133,7 +133,7 @@ run "no_nonprod_kv" {
   command = plan
 
   assert {
-    condition = length(vault_identity_group_alias.kv_nonprod) == 0
+    condition     = length(vault_identity_group_alias.kv_nonprod) == 0
     error_message = "nonprod kv group alias was created but not expected"
   }
 }
@@ -145,7 +145,7 @@ run "yes_nonprod_kv" {
     kv_group_nonprod_name = "foobar"
   }
   assert {
-    condition = length(vault_identity_group_alias.kv_nonprod) == 1
+    condition     = length(vault_identity_group_alias.kv_nonprod) == 1
     error_message = "nonprod kv group alias was not created but expected"
   }
 }
