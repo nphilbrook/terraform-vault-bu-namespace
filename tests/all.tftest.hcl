@@ -2,20 +2,6 @@ provider "vault" {
   address = "unused"
 }
 
-mock_provider "aws" {
-  mock_data "aws_iam_policy" {
-    defaults = {
-      arn = "arn:aws:iam::123456780000:policy/DemoUser"
-    }
-  }
-
-  mock_data "aws_iam_policy_document" {
-    defaults = {
-      json = "{}"
-    }
-  }
-}
-
 variables {
   auth_mount_accessor = "auth_saml_1234abcde"
   name                = "foobar"
