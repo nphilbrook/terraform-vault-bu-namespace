@@ -2,49 +2,49 @@
 # It is intentionally read-only so that write ops go through Terraform code
 data "vault_policy_document" "namespace_admin" {
   rule {
-    path         = "sys/policies/acl*"
+    path         = "${vault_namespace.this.path}/sys/policies/acl*"
     capabilities = ["read", "list"]
     description  = "Read ACL policies"
   }
 
   rule {
-    path         = "auth*"
+    path         = "${vault_namespace.this.path}/auth*"
     capabilities = ["read", "list"]
     description  = "Read/list auth methods broadly across Vault"
   }
 
   rule {
-    path         = "sys/auth*"
+    path         = "${vault_namespace.this.path}/sys/auth*"
     capabilities = ["read", "list"]
     description  = "List auth methods"
   }
 
   rule {
-    path         = "identity*"
+    path         = "${vault_namespace.this.path}/identity*"
     capabilities = ["read", "list"]
     description  = "Read identity objects"
   }
 
   rule {
-    path         = "sys/mounts*"
+    path         = "${vault_namespace.this.path}/sys/mounts*"
     capabilities = ["read", "list"]
     description  = "Read/list secrets engines"
   }
 
   rule {
-    path         = "sys/config/ui"
+    path         = "${vault_namespace.this.path}/sys/config/ui"
     capabilities = ["read", "list"]
     description  = "Configure Vault UI"
   }
 
   rule {
-    path         = "sys/leases*"
+    path         = "${vault_namespace.this.path}/sys/leases*"
     capabilities = ["read", "list"]
     description  = "Read/list leases"
   }
 
   rule {
-    path         = "sys/plugins*"
+    path         = "${vault_namespace.this.path}/sys/plugins*"
     capabilities = ["read", "list"]
     description  = "Read/list plugins, if any"
   }
@@ -52,7 +52,6 @@ data "vault_policy_document" "namespace_admin" {
 }
 
 resource "vault_policy" "namespace_admin" {
-  namespace = vault_namespace.this.path
-  name      = "namespace-admin"
+  name      = "${vault_namespace.this.path}-namespace-admin"
   policy    = data.vault_policy_document.namespace_admin.hcl
 }
