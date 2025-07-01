@@ -12,12 +12,6 @@ variable "name" {
   }
 }
 
-variable "namespace_admin_group_name" {
-  type        = string
-  description = "Name of the group to use for namespace admin - which grants wider view access to objects across the namespace."
-  default     = null
-}
-
 variable "kv_group_prod_name" {
   type        = string
   description = "Name of the group to use for production k/v access"
