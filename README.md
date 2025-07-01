@@ -8,7 +8,6 @@ will live under either the `testing` or `live` namespace, depending on which wor
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~>1.6 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=5.91 |
 | <a name="requirement_vault"></a> [vault](#requirement\_vault) | >=4.7.0 |
 
 ## Providers
@@ -34,8 +33,10 @@ No modules.
 | [vault_namespace.this](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/namespace) | resource |
 | [vault_policy.kv_nonprod](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/policy) | resource |
 | [vault_policy.kv_prod](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/policy) | resource |
+| [vault_policy.namespace_admin](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/policy) | resource |
 | [vault_policy_document.kv_nonprod](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/policy_document) | data source |
 | [vault_policy_document.kv_prod](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/policy_document) | data source |
+| [vault_policy_document.namespace_admin](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/policy_document) | data source |
 
 ## Inputs
 
