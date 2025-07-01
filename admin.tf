@@ -56,17 +56,3 @@ resource "vault_policy" "namespace_admin" {
   name      = "namespace-admin"
   policy    = data.vault_policy_document.namespace_admin.hcl
 }
-
-# External group for ns admins
-resource "vault_identity_group" "ns_admin" {
-  name     = "${vault_namespace.this.path}-ns_admin"
-  type     = "external"
-  policies = [vault_policy.namespace_admin.name]
-}
-
-resource "vault_identity_group_alias" "ns_admin" {
-  count          = var.namespace_admin_group_name != null ? 1 : 0
-  name           = var.namespace_admin_group_name
-  mount_accessor = var.auth_mount_accessor
-  canonical_id   = vault_identity_group.ns_admin.id
-}

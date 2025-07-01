@@ -48,10 +48,11 @@ resource "vault_identity_group_alias" "kv_nonprod" {
 }
 
 # External group for prod
+# This includes the namespace admin policy to allow broader visibility
 resource "vault_identity_group" "kv_prod" {
   name     = "${vault_namespace.this.path}-kv_prod"
   type     = "external"
-  policies = [vault_policy.kv_nonprod.name, vault_policy.kv_prod.name]
+  policies = [vault_policy.kv_nonprod.name, vault_policy.kv_prod.name, vault_policy.namespace_admin.name]
 }
 
 resource "vault_identity_group_alias" "kv_prod" {
