@@ -12,11 +12,11 @@ variable "name" {
   }
 }
 
-# variable "tf_project_name" {
-#   type        = string
-#   description = "The name of the Terraform project to bind the JWT auth to. Workspace is inferred from name"
-#   default     = "SB Vault Lab"
-# }
+variable "namespace_admin_group_name" {
+  type        = string
+  description = "Name of the group to use for namespace admin - which grants wider view access to objects across the namespace."
+  default     = null
+}
 
 variable "kv_group_prod_name" {
   type        = string
