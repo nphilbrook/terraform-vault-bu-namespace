@@ -49,7 +49,25 @@ data "vault_policy_document" "namespace_admin" {
     description  = "Read/list plugins, if any"
   }
 
-  # AWS specific rules. These paths may not exist on all namespaces,
+  rule {
+    path         = "${vault_namespace.this.path}/nonprod*"
+    capabilities = ["list"]
+    description  = "List things in nonprod"
+  }
+
+  rule {
+    path         = "${vault_namespace.this.path}/prod*"
+    capabilities = ["list"]
+    description  = "List things in prod"
+  }
+
+  rule {
+    path         = "${vault_namespace.this.path}/sys/capabilities-self"
+    capabilities = ["update"]
+    description  = "Read capabilities of the token on this path in sub-namespaces. Default policy only grants this on the token namespace"
+  }
+
+  # AWS specific rules. These paths may not exist on all namespaces
   rule {
     path         = "${vault_namespace.this.path}/aws/config/rotate-root"
     capabilities = ["update"]

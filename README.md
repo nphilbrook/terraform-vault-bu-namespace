@@ -52,6 +52,7 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The full path to the namespace, which the Vault provider calls `id` for some reason. |
+| <a name="output_namespace_admin_policy_name"></a> [namespace\_admin\_policy\_name](#output\_namespace\_admin\_policy\_name) | The name of the namespace admin policy. |
 | <a name="output_namespace_id"></a> [namespace\_id](#output\_namespace\_id) | The internal ID Vault assigns this namespace. |
 | <a name="output_path"></a> [path](#output\_path) | The path to the namespace. |
 <!-- END_TF_DOCS -->
