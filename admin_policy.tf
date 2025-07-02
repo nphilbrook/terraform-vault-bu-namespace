@@ -49,9 +49,28 @@ data "vault_policy_document" "namespace_admin" {
     description  = "Read/list plugins, if any"
   }
 
+  # AWS specific rules. These paths may not exist on all namespaces,
+  rule {
+    path         = "${vault_namespace.this.path}/aws/config/rotate-root"
+    capabilities = ["update"]
+    description  = "Allow rotation of AWS root credentials"
+  }
+
+  rule {
+    path         = "${vault_namespace.this.path}/aws/config/root"
+    capabilities = ["read"]
+    description  = "Allow reading the AWS root config"
+  }
+
+  rule {
+    path         = "${vault_namespace.this.path}/aws/roles*"
+    capabilities = ["read", "list"]
+    description  = "Allow list and reading AWS roles"
+  }
+  # End AWS specific rules
 }
 
 resource "vault_policy" "namespace_admin" {
-  name      = "${vault_namespace.this.path}-namespace-admin"
-  policy    = data.vault_policy_document.namespace_admin.hcl
+  name   = "${vault_namespace.this.path}-namespace-admin"
+  policy = data.vault_policy_document.namespace_admin.hcl
 }
